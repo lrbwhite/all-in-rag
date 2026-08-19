@@ -29,6 +29,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+from config import RAGConfig
+print("当前LLM模型名称：",RAGConfig.llm_model)
+
 class RecipeRAGSystem:
     """食谱RAG系统主类"""
 

@@ -8,6 +8,7 @@ from typing import List
 
 from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
 from langchain_community.chat_models.moonshot import MoonshotChat
+from langchain_deepseek import ChatDeepSeek
 from langchain_core.documents import Document
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
@@ -36,16 +37,26 @@ class GenerationIntegrationModule:
         """初始化大语言模型"""
         logger.info(f"正在初始化LLM: {self.model_name}")
 
-        api_key = os.getenv("MOONSHOT_API_KEY")
+        # api_key = os.getenv("MOONSHOT_API_KEY")
+        api_key = os.getenv("DEEPSEEK_API_KEY")
         if not api_key:
+            # raise ValueError("请设置 MOONSHOT_API_KEY 环境变量")
             raise ValueError("请设置 MOONSHOT_API_KEY 环境变量")
 
-        self.llm = MoonshotChat(
+
+        # self.llm = MoonshotChat(
+        #     model=self.model_name,
+        #     temperature=self.temperature,
+        #     max_tokens=self.max_tokens,
+        #     moonshot_api_key=api_key
+        # )
+        self.llm = ChatDeepSeek(
             model=self.model_name,
             temperature=self.temperature,
             max_tokens=self.max_tokens,
-            moonshot_api_key=api_key
+            api_key=api_key
         )
+
         
         logger.info("LLM初始化完成")
     
